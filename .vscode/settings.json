@@ -1,0 +1,14 @@
+{
+  "workbench.colorTheme": "Tokyo Night Dark",
+  "workbench.iconTheme": "material-icon-theme",
+  "files.eol": "\n",
+  "material-icon-theme.activeIconPack": "nest",
+  "background.enabled": true,
+  "background.fullscreen": {
+    "opacity": 0.05,
+    "size": "cover",
+    "position": "center",
+    "interval": 0,
+    "random": false
+  }
+}
