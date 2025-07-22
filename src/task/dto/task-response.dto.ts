@@ -1,5 +1,5 @@
 export class TaskResponseDTO {
-  id: string;
+  id?: string;
   title: string;
   description?: string;
   done: boolean;
