@@ -23,6 +23,10 @@ export class TaskRepository implements ITaskRepository {
     return await this.taskModel.findById(id).exec();
   }
 
+  async findByTitle(title: string): Promise<Task | null> {
+    return await this.taskModel.findOne({ title }).exec();
+  }
+
   async delete(id: string): Promise<boolean> {
     const result = await this.taskModel.deleteOne({ _id: id }).exec();
     return result.deletedCount === 1;
