@@ -23,7 +23,11 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project is a **Task API** built with [NestJS](https://github.com/nestjs/nest). It allows you to perform basic **CRUD** operations (Create, Read, Update, Delete) on tasks.
+
+**Database:** Uses **MongoDB** for data storage.
+
+**Documentation:** The API is documented using **Swagger**, making it easy to explore and test all available endpoints.
 
 ## Project setup
 
