@@ -7,7 +7,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('Task API')
-    .setDescription('API documentation for the Task API')
+    .setDescription(
+      'REST API built with NestJS that allows CRUD operations (Create, Read, Update, Delete) for tasks, using MongoDB as the database. Provides endpoints to manage tasks efficiently.',
+    )
     .setVersion('1.0')
     .build();
   const documentFactory = SwaggerModule.createDocument(app, config);
