@@ -8,7 +8,6 @@ import { ITaskService } from '../task-service.interface';
 import { ITaskRepository } from 'src/task/repository/task-repository.interface';
 import { TaskRequestDTO } from 'src/task/dto/task-request.dto';
 import { TaskResponseDTO } from 'src/task/dto/task-response.dto';
-import { Task } from 'src/task/schemas/task.schema';
 
 @Injectable()
 export class TaskService implements ITaskService {
@@ -19,13 +18,14 @@ export class TaskService implements ITaskService {
   async createTask(taskRequest: TaskRequestDTO): Promise<TaskResponseDTO> {
     const existing = await this.taskRepository.findByTitle?.(taskRequest.title);
     if (existing) {
-      throw new ConflictException('Ya existe una tarea con ese título');
+      throw new ConflictException('A task with that title already exists');
     }
 
-    const task = new Task();
-    task.title = taskRequest.title;
-    task.description = taskRequest.description ?? '';
-    task.done = taskRequest.done ?? false;
+    const task = {
+      title: taskRequest.title,
+      description: taskRequest.description ?? '',
+      done: taskRequest.done ?? false,
+    };
 
     const savedTask = await this.taskRepository.save(task);
     return {
@@ -53,7 +53,7 @@ export class TaskService implements ITaskService {
   async getTaskById(id: string): Promise<TaskResponseDTO | null> {
     const task = await this.taskRepository.findById(id);
     if (!task) {
-      throw new NotFoundException('Tarea no encontrada');
+      throw new NotFoundException('Task not found');
     }
     return {
       id: task._id?.toString(),
@@ -71,12 +71,12 @@ export class TaskService implements ITaskService {
   ): Promise<TaskResponseDTO | null> {
     const task = await this.taskRepository.findById(id);
     if (!task) {
-      throw new NotFoundException('Tarea no encontrada');
+      throw new NotFoundException('Task not found');
     }
 
     const existing = await this.taskRepository.findByTitle?.(taskRequest.title);
     if (existing && existing._id?.toString() !== id) {
-      throw new ConflictException('Ya existe una tarea con ese título');
+      throw new ConflictException('A task with that title already exists');
     }
 
     task.title = taskRequest.title;
@@ -97,7 +97,7 @@ export class TaskService implements ITaskService {
   async deleteTask(id: string): Promise<boolean> {
     const task = await this.taskRepository.findById(id);
     if (!task) {
-      throw new NotFoundException('Tarea no encontrada');
+      throw new NotFoundException('Task not found');
     }
     const result = await this.taskRepository.delete(id);
     return result;
